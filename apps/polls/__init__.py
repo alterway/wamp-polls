@@ -1,0 +1,1 @@
+"""The polls Django app"""

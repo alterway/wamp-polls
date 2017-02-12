@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="jumbotron">
+        <h1>WAMP demo</h1>
+        <p>This is a minimalistic Polls site inspired by the official Django tutorial intended to be a WAMP demo.</p>
+    </div>
+    <div class="well">
+        <h3>Usage:</h3>
+        <ul>
+            <li>Choose poll from <a href="{% url 'polls:index' %}" class="btn btn-success">here</a></li>
+            <li>Vote for your favorite answer</li>
+            <li>Open an other browser or browser window at the same poll page</li>
+            <li>View the <strong>live update</strong> of polls when others vote</li>
+        </ul>
+    </div>
+{% endblock %}

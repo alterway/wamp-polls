@@ -1,1 +1,5 @@
 Django
+django-bootstrap3
+autobahn
+docutils
+requests

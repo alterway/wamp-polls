@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block bootstrap3_title %}About{% endblock %}
+{% block content %}
+    <div class="jumbotron">
+        <h1>About the WAMP demo</h1>
+        <p>This demo demonstrates quickly the PUB/SUB feature of the WAMP protocol</p>
+        <img src="{% static 'media/logo.png' %}">
+        <p>Main great pieces of software that power this demo:</p>
+        <ul>
+            <li><a href="http://wamp-proto.org/">The WAMP protocol</a></li>
+            <li><a href="http://crossbar.io/">The Crossbar router</a></li>
+            <li><a href="http://autobahn.readthedocs.io/en/latest/">Autobahn-Python</a></li>
+            <li><a href="https://www.npmjs.com/package/autobahn">Autobahn-JS</a></li>
+            <li><a href="https://www.djangoproject.com/">Django</a></li>
+            <li><a href="http://getbootstrap.com/">Bootstrap 3</a></li>
+        </ul>
+    </div>
+{% endblock %}

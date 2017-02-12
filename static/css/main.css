@@ -1,0 +1,11 @@
+/* Bootstrap3 customizations
+   =========================
+ */
+
+body {
+    padding-top: 50px;
+}
+
+div.jumbotron {
+    background-color: #BAE0FF;
+}

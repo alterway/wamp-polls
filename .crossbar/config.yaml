@@ -1,0 +1,57 @@
+version: 2
+controller: {}
+workers:
+- type: router
+  options:
+    pythonpath: ['..']
+  realms:
+  - name: polls
+    # Weak security for a demo, don't use this for sensitive data in production
+    roles:
+    - name: anonymous
+      permissions:
+      - uri: ''
+        match: prefix
+        allow:
+          call: true
+          register: true
+          publish: true
+          subscribe: true
+        disclose:
+          caller: false
+          publisher: false
+        cache: true
+  transports:
+  - type: universal
+    endpoint:
+      type: tcp
+      port: 8080
+    rawsocket: {}
+    websocket:
+      ws:
+        type: websocket
+
+    web:
+      paths:
+
+        # Using crossbar static and WSGI HTTP server capabilities (enough for a demo)
+        # http://crossbar.io/docs/WSGI-Host-Service/
+        # Could be replaced by Gunicorn or uWSGI in a real production situation
+        /:
+          type: wsgi
+          module: project.wsgi
+          object: application
+        static:
+          type: static
+          directory: "../var/static"
+
+        # Publisher http bridge
+        # http://crossbar.io/docs/HTTP-Bridge-Publisher/
+        publish:
+          type: publisher
+          realm: polls
+          role: anonymous
+
+      options:
+        access_log: true
+        display_tracebacks: true

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% block bootstrap3_title %}Questions{% endblock %}
+{% block content %}
+    <div class="well">
+        <h1>Available polls</h1>
+    </div>
+    {% if questions_list %}
+        {% bootstrap_pagination page_obj %}
+        <table class="table table-striped table-hover ">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Question</th>
+                <th>Total responses</th>
+                <th>Published</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for question in questions_list %}
+                <tr>
+                    {% url 'polls:vote' question.id as target_url %}
+                    <td><a href="{{ target_url }}">{{ question.id }}</a></td>
+                    <td><a href="{{ target_url }}">{{ question.question_text }}</a></td>
+                    <td><span class="badge"
+                              id="responses-count-{{ question.id }}">
+                        {{ question.responses_count }}
+                    </span></td>
+                    <td>{{ question.pub_date }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% bootstrap_pagination page_obj %}
+    {% else %}
+        <p>No polls are available.</p>
+    {% endif %}
+{% endblock %}
+
+{% block page_script %}
+    <script>
+        // Connecting the router
+        var connection = new autobahn.Connection({url: WAMP_URL, realm: WAMP_REALM});
+
+        // Session start hook
+        connection.onopen = function (session, details) {
+            console.log("Connected to WAMP router");
+
+            // Subscription handler
+            var onQuestionUpdate = function (args) {
+                console.log("question.update event received with:" + args);
+
+                // Update the cell that has the count for this vote
+                var payload = args[0];
+                var question_id = payload['question_id'];
+                var total_votes = payload['total_votes'];
+                $('#responses-count-' + question_id).html(total_votes);
+            };
+
+            // Registering above handler
+            session.subscribe('question.update', onQuestionUpdate).then(
+                function (sub) {
+                    console.log("Subscribed to topic 'question.update'");
+                },
+                function (err) {
+                    console.log("Failed to subscribe: " + err)
+                }
+            );
+        }
+
+        // Opening connection
+        connection.open();
+    </script>
+{% endblock %}

@@ -1,1 +1,4 @@
 pipdeptree
+ipython
+django-debug-toolbar
+factory_boy

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% block bootstrap3_title %}Vote{% endblock %}
+{% block content %}
+    <div class="well">
+        <h2>{{ question.question_text }}</h2>
+        <form action="." method="post">
+            <fieldset>
+                {% csrf_token %}
+                {% bootstrap_form form show_label=False layout='inline' %}
+                {% bootstrap_button "Vote" button_type="submit" button_class="btn-primary" icon="thumbs-up" %}
+            </fieldset>
+        </form>
+    </div>
+    <div class="well">
+        <h2>Results - <span>{{ question.responses_count }}</span> votes</h2>
+        {% for choice in choices %}
+            <h3>{{ choice.choice_text }}</h3>
+            <div class="progress">
+            <div class="progress-bar progress-bar-success" style="width: {{ choice.votes_percent|floatformat:0 }}%">
+                <span class="badge">{{ choice.votes }}</span> vote{{ choice.votes|pluralize }}
+                - {{ choice.votes_percent|floatformat:2 }}%
+            </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
