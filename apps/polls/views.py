@@ -2,6 +2,7 @@ from functools import lru_cache
 import requests
 
 from django.conf import settings
+from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView
 from django.views.generic.edit import FormView
@@ -57,7 +58,18 @@ class VoteView(FormView):
                 for choice in question.choice_set.iterator()
             ]
         }
-        wamp_publish(message)
+        response = wamp_publish(message)
+
+        # Notifying the publication success (or error)
+        err_msg = False
+        if isinstance(response, requests.exceptions.ConnectionError):
+            err_msg = "Could not connect with the WAMP router bridge {}".format(settings.MY_WAMP_HTTP_GATEWAY)
+        elif not response.ok:
+            err_msg = "Notification could not be issued ({}: {})".format(response.status_code, response.reason)
+        if err_msg:
+            messages.error(self.request, err_msg)
+        else:
+            messages.info(self.request, "Your vote is spreading to the world!")
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -77,5 +89,8 @@ def wamp_publish(message):
         'topic': 'question.update',
         'args': [message]
     }
-    response = requests.post(settings.MY_WAMP_HTTP_GATEWAY, json=payload)
+    try:
+        response = requests.post(settings.MY_WAMP_HTTP_GATEWAY, json=payload)
+    except requests.ConnectionError as exc:
+        response = exc
     return response
