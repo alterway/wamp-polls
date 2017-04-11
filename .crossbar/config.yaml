@@ -6,7 +6,7 @@ workers:
     pythonpath: ['..']
   realms:
   - name: polls
-    # Weak security for a demo, don't use this for sensitive data in production
+    # Permissive security policy for a demo, don't use this for sensitive data in production
     roles:
     - name: anonymous
       permissions:
