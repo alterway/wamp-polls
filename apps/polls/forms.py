@@ -13,6 +13,8 @@ CHOICES = [
 
 
 class VoteForm(forms.Form):
+    """Form with radios vor various question choices
+    """
     vote = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect)
 
     @classmethod

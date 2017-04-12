@@ -1,11 +1,14 @@
-from django.core.management.base import BaseCommand, CommandError
+"""Django admin subcommand that populates the database
 
-from apps.polls.tests import QuestionFactory, ChoiceFactory
+https://docs.djangoproject.com/en/1.11/howto/custom-management-commands/
+"""
+from django.core.management.base import BaseCommand
+
 from apps.polls.models import Question, Choice
 
 
 class Command(BaseCommand):
-    help = "Create additional questions"
+    help = "Create additional questions and choices "
 
     def add_arguments(self, parser):
         parser.add_argument('questions_count', nargs='?', default=1, type=int,

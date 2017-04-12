@@ -1,7 +1,7 @@
 from .common import *  # noqa
 
 DEBUG = True
-USE_DEBUG_TOOLBAR = False
+USE_DEBUG_TOOLBAR = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
 

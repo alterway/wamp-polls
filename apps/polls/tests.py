@@ -1,3 +1,5 @@
+"""(Poorly) testing the app
+"""
 from django.test import TestCase
 
 from factory import DjangoModelFactory

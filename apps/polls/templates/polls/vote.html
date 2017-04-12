@@ -1,3 +1,4 @@
+{# Vote form #}
 {% extends 'base.html' %}
 {% load bootstrap3 %}
 {% block bootstrap3_title %}Vote{% endblock %}
@@ -13,15 +14,67 @@
         </form>
     </div>
     <div class="well">
-        <h2>Results - <span>{{ question.responses_count }}</span> votes</h2>
+        {# Marking elements that may be changed by JS with server computed ids for future changes by JS #}
+        <h2>Results - <span id="responses-count-{{ question.id }}">{{ question.responses_count }}</span> votes</h2>
         {% for choice in choices %}
             <h3>{{ choice.choice_text }}</h3>
             <div class="progress">
-            <div class="progress-bar progress-bar-success" style="width: {{ choice.votes_percent|floatformat:0 }}%">
-                <span class="badge">{{ choice.votes }}</span> vote{{ choice.votes|pluralize }}
-                - {{ choice.votes_percent|floatformat:2 }}%
-            </div>
+                <div class="progress-bar progress-bar-success"
+                     id="choice-progress-{{ choice.id }}"
+                     style="width: {{ choice.votes_percent|floatformat:0 }}%">
+                    <span class="badge" id="choice-votes-{{ choice.id }}">{{ choice.votes }}</span>
+                    vote{{ choice.votes|pluralize }} -
+                    <span id="choice-percent-{{ choice.id }}">{{ choice.votes_percent|floatformat:2 }}</span>%
+                </div>
             </div>
         {% endfor %}
     </div>
-{% endblock %}
+{% endblock content %}
+
+{% block page_script %}
+    <script>
+        // Connecting the router
+        var connection = new autobahn.Connection({url: WAMP_URL, realm: WAMP_REALM});
+
+        // Session start hook
+        connection.onopen = function (session, details) {
+            console.log("Connected to WAMP router");
+
+            // Subscription handler
+            var onQuestionUpdate = function (args) {
+                console.log("question.update event received with:" + args);
+
+                // Update the cell that has the count for this vote
+                var payload = args[0];
+                var question_id = payload['question_id'];
+                var total_votes = payload['total_votes'];
+                $('#responses-count-' + question_id).html(total_votes);
+
+                // Update individual choices
+                var choices = payload['choices'];
+                for (var i in choices) {
+                    var choice = choices[i];
+                    var choice_id = choice['id'];
+                    var choice_votes = choice['votes'];
+                    $('#choice-votes-' + choice_id).html(choice_votes);
+                    var choice_percent = choice['percent'];
+                    $('#choice-progress-' + choice_id).css({'width': choice_percent.toFixed(0).toString() + '%'});
+                    $('#choice-percent-' + choice_id).html(choice_percent.toFixed(2))
+                }
+            };
+
+            // Registering above handler
+            session.subscribe('question.update', onQuestionUpdate).then(
+                function (sub) {
+                    console.log("Subscribed to topic 'question.update'");
+                },
+                function (err) {
+                    console.log("Failed to subscribe: " + err)
+                }
+            );
+        };
+
+        // Opening connection
+        connection.open();
+    </script>
+{% endblock page_script %}

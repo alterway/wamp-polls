@@ -1,3 +1,6 @@
+"""Django app minimal configuration
+"""
+
 from django.apps import AppConfig
 
 

@@ -1,3 +1,5 @@
+"""Admin panels customisation
+"""
 from django.contrib import admin
 
 from .models import Question, Choice

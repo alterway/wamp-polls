@@ -1,3 +1,4 @@
+{# List of polls with batch navigation #}
 {% extends 'base.html' %}
 {% load bootstrap3 %}
 {% block bootstrap3_title %}Questions{% endblock %}
@@ -22,6 +23,7 @@
                     {% url 'polls:vote' question.id as target_url %}
                     <td><a href="{{ target_url }}">{{ question.id }}</a></td>
                     <td><a href="{{ target_url }}">{{ question.question_text }}</a></td>
+                    {# marking this with "response-count-xxx" server computed ids for future JS live update #}
                     <td><span class="badge"
                               id="responses-count-{{ question.id }}">
                         {{ question.responses_count }}
@@ -35,7 +37,7 @@
     {% else %}
         <p>No polls are available.</p>
     {% endif %}
-{% endblock %}
+{% endblock content %}
 
 {% block page_script %}
     <script>
@@ -66,9 +68,9 @@
                     console.log("Failed to subscribe: " + err)
                 }
             );
-        }
+        };
 
         // Opening connection
         connection.open();
     </script>
-{% endblock %}
+{% endblock page_script %}

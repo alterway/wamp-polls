@@ -1,3 +1,4 @@
+{# Home page #}
 {% extends 'base.html' %}
 {% block content %}
     <div class="jumbotron">
@@ -7,10 +8,56 @@
     <div class="well">
         <h3>Usage:</h3>
         <ul>
-            <li>Choose poll from <a href="{% url 'polls:index' %}" class="btn btn-success">here</a></li>
-            <li>Vote for your favorite answer</li>
-            <li>Open an other browser or browser window at the same poll page</li>
-            <li>View the <strong>live update</strong> of polls when others vote</li>
+            <li>Open the polls list <a href="{% url 'polls:index' %}" class="btn btn-success">here</a> in browser (A).
+            </li>
+            <li>Open any poll in a second browser or browser window (B).</li>
+            <li>Open the same poll in a third browser or browser window (C)</li>
+            <li>Vote for your favorite answer from browser (C).</li>
         </ul>
+
+        <h3>Magic happens:</h3>
+
+        <ul>
+            <li>The total responses count for this poll has changed in browser (A).</li>
+            <li>The resuts of the poll have been updated in browser (B).</li>
+        </ul>
+        <p>No, you do not need to refresh browsers (A) and (B), and no, there's no auto-refresh tag in these pages.</p>
+
+        <h3>How the hell does it work?</h3>
+
+        <p>
+            There's a WAMP router agent that runs around, powered by Crossbar.
+            Relevant pages (A), (B) and (C) have a javascript that open a
+            session on that WAMP router, and subscribe to the poll changes
+            dedicated WAMP URI. This poll change comes as a JSON object that says what
+            poll needs an update, and the new poll data (votes for each
+            choice, etc).
+        </p>
+        <p>
+            When you voted from the (C) browser, the new choice counts are
+            computed and updated in the database as usual.
+        </p>
+        <p>
+            In addition, the server logic builds relevant JSON object that
+            reflects the new poll values. This JSON object is published at the
+            same WAMP URI through the WAMP router, and all Web pages (or any
+            non Web application application in the area) is notified of the
+            change.
+        </p>
+        <p>
+            The <a href="{% url 'about' %}" class="btn btn-success">About</a>
+            page has pointers to the involved software technologies.
+        </p>
+
+        <h3>Tested with:</h3>
+        <ul>
+            <li>Firefox 52</li>
+            <li>Chrome 57</li>
+            <li>Safari 10</li>
+            <li>MS Internet Explorer 11</li>
+            <li>MS Edge</li>
+        </ul>
+        <p>And should work with any other browser with WebSockets feature enabled.</p>
     </div>
+
 {% endblock %}

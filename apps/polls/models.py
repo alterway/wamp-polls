@@ -1,3 +1,5 @@
+"""Persistent data models"""
+
 import datetime
 from functools import lru_cache
 
@@ -29,10 +31,12 @@ class Choice(models.Model):
     """
     question = models.ForeignKey(Question, on_delete=models.CASCADE, help_text="Related question")
     choice_text = models.CharField(max_length=200, help_text="Choice text")
-    votes = models.IntegerField(default=0, help_text="Votes for this choice")
+    votes = models.IntegerField(default=0, help_text="Votes count for this choice")
 
     @property
     def votes_percent(self):
+        """Votes in percent among all choices of same question
+        """
         return 100.0 * self.votes / self.question.responses_count
 
     def __str__(self):

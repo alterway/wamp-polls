@@ -1,3 +1,5 @@
+"""Views for the app"""
+
 from functools import lru_cache
 import requests
 
@@ -29,7 +31,7 @@ class VoteView(FormView):
 
     @lru_cache()
     def _get_question(self, question_id):
-        """Gets the question for a PK
+        """Gets and cache the question for a PK
         """
         return get_object_or_404(Question, pk=question_id)
 
@@ -39,6 +41,8 @@ class VoteView(FormView):
         return VoteForm.make_vote_form(question)
 
     def form_valid(self, form):
+        """Handling successful form submit
+        """
         # We save the new result
         choice_id = int(form.data['vote'])
         choice = get_object_or_404(Choice, pk=choice_id)
@@ -61,11 +65,12 @@ class VoteView(FormView):
         response = wamp_publish(message)
 
         # Notifying the publication success (or error)
-        err_msg = False
         if isinstance(response, requests.exceptions.ConnectionError):
             err_msg = "Could not connect with the WAMP router bridge {}".format(settings.MY_WAMP_HTTP_GATEWAY)
         elif not response.ok:
             err_msg = "Notification could not be issued ({}: {})".format(response.status_code, response.reason)
+        else:
+            err_msg = False
         if err_msg:
             messages.error(self.request, err_msg)
         else:
@@ -73,6 +78,8 @@ class VoteView(FormView):
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
+        """Extra data for template
+        """
         question_id = int(self.kwargs['question_id'])
         question = self._get_question(question_id)
         kwargs.setdefault('question', question)
