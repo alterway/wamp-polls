@@ -1,5 +1,6 @@
 Django
 django-bootstrap3
+crossbar
 autobahn
 docutils
 requests
