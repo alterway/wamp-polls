@@ -37,7 +37,11 @@ class Choice(models.Model):
     def votes_percent(self):
         """Votes in percent among all choices of same question
         """
-        return 100.0 * self.votes / self.question.responses_count
+        response_count = self.question.responses_count
+        if response_count == 0:
+            return 0.0
+        else:
+            return 100.0 * self.votes / self.question.responses_count
 
     def __str__(self):
         return "{0.id}: {0.choice_text}".format(self)

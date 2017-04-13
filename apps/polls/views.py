@@ -20,6 +20,7 @@ class IndexView(ListView):
     template_name = 'polls/index.html'
     context_object_name = 'questions_list'
     paginate_by = 20
+    ordering = '-pub_date'
 
 
 class VoteView(FormView):
@@ -64,7 +65,7 @@ class VoteView(FormView):
         }
         response = wamp_publish(message)
 
-        # Notifying the publication success (or error)
+        # Notifying the publication success (or error) in the UI
         if isinstance(response, requests.exceptions.ConnectionError):
             err_msg = "Could not connect with the WAMP router bridge {}".format(settings.MY_WAMP_HTTP_GATEWAY)
         elif not response.ok:
@@ -99,5 +100,6 @@ def wamp_publish(message):
     try:
         response = requests.post(settings.MY_WAMP_HTTP_GATEWAY, json=payload)
     except requests.ConnectionError as exc:
+        # B plan when running Django debug server or unit tests without Crossbar
         response = exc
     return response

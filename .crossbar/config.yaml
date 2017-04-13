@@ -1,3 +1,6 @@
+---
+# See Crossbar node configuration doc
+# http://crossbar.io/docs/Node-Configuration/
 version: 2
 controller: {}
 workers:
@@ -6,6 +9,7 @@ workers:
     pythonpath: ['..']
   realms:
   - name: polls
+
     # Permissive security policy for a demo, don't use this for sensitive data in production
     roles:
     - name: anonymous
@@ -23,10 +27,14 @@ workers:
         cache: true
   transports:
   - type: universal
+
+    # Everything goes through the port 8080
     endpoint:
       type: tcp
       port: 8080
     rawsocket: {}
+
+    # The /ws endpoint for WebSockets with no particular option
     websocket:
       ws:
         type: websocket
