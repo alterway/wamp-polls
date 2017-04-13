@@ -1,5 +1,6 @@
 Django
 django-bootstrap3
+django-debug-toolbar
 crossbar
 autobahn
 docutils
