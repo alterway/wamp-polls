@@ -1,7 +1,9 @@
 venv/
 .vscode/
+.idea/
 /var/db/db.sqlite3
 /tags
 
 /var/log/
 /var/static/
+/var/db/
