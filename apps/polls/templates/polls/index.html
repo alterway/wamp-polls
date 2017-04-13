@@ -53,9 +53,9 @@
                 console.log("question.update event received with:" + args);
 
                 // Update the cell that has the count for this vote
-                var payload = args[0];
-                var question_id = payload['question_id'];
-                var total_votes = payload['total_votes'];
+                var message = args[0];
+                var question_id = message['question_id'];
+                var total_votes = message['total_votes'];
                 $('#responses-count-' + question_id).html(total_votes);
             };
 
