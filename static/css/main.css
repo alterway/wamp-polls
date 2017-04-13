@@ -9,3 +9,13 @@ body {
 div.jumbotron {
     background-color: #BAE0FF;
 }
+
+footer.footer {
+    background-color: #BAE0FF;
+    height: 40px;
+    padding-top: 10px;
+}
+
+footer div p {
+    text-align: center;
+}
