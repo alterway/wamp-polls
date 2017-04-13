@@ -3,7 +3,9 @@ WAMP polls
 ==========
 
 This is a small demo of a web application with WAMP powered real time notifications. Polls are
-updated live on any page.
+updated live on any relevant page.
+
+------------
 
 Installation
 ============
@@ -81,6 +83,13 @@ You may - or not - populate the database with some fuzzy stupid polls:
    ./manage.py addquestions --help
 
 Will give you the opportunity to customize a little these default questions.
+
+Now we need to export the static files out of Django world to let the static Web server publish
+them:
+
+.. code:: console
+
+   ./manage.py collectstatic
 
 Run the beast
 =============
