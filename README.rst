@@ -2,8 +2,10 @@
 WAMP polls
 ==========
 
-This is a small demo of a web application with WAMP powered real time notifications. Polls are
-updated live on any relevant page.
+This is a small demo of a web application with WAMP [#wamp]_ powered real time notifications.
+Polls are updated live on any relevant page.
+
+.. [#wamp] `Web Asynchronous Messaging Protocol <http://wamp-proto.org/>`_.
 
 ------------
 
@@ -287,9 +289,8 @@ Python with cypher, auth, WAMP components, etc.
 Credits
 =======
 
-This demo is an open source contribution by `Alter Way
-<https://www.alterway.fr/>`_ developed by `Gilles Lenfant
-<mailto:gilles.lenfant@alterway.fr>`_.
+This demo is an open source contribution by `Alter Way <https://www.alterway.fr/>`_ developed by
+`Gilles Lenfant <mailto:gilles.lenfant@alterway.fr>`_.
 
 Kudos to:
 
