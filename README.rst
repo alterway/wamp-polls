@@ -244,8 +244,11 @@ createsuperuser`` when installing this software. Then click the **Questions of p
 
 Questions and choices management forms are self explanative.
 
-Exits about WAMP and Autobahn
-=============================
+Exits about WAMP, Crossbar and Autobahn
+=======================================
+
+Main sites (docs, etc.)
+-----------------------
 
 The WAMP protocol
   http://wamp-proto.org/
@@ -259,8 +262,27 @@ Autobahn|Python
 Autobahn|JS
   https://github.com/crossbario/autobahn-js/tree/master/doc
 
+Community support
+-----------------
+
+Google groups
+  https://groups.google.com/forum/#!forum/crossbario and
+  https://groups.google.com/forum/#!forum/autobahnws
+
 Some articles (French)
   http://sametmax.com/tag/wamp/
+
+More Crossbar demos
+-------------------
+
+With various other client languages (JS, PHP, Golang, ...), frameworks, architectures
+  https://github.com/crossbario/crossbar-examples
+
+Live demos of some of above source codes(just browse and play)
+  https://demo.crossbar.io/
+
+Python with cypher, auth, WAMP components, etc.
+  https://github.com/crossbario/autobahn-python/tree/master/examples
 
 Credits
 =======
@@ -272,7 +294,7 @@ This demo is an open source contribution by `Alter Way
 Kudos to:
 
 - my mates from Alter Way for the functional tests and directions,
-- the Crossbar contributors for their help on Github tracker
+- the Crossbar and Autobahn contributors for their help on Github tracker
 
 License
 =======
