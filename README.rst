@@ -210,7 +210,8 @@ The WAMP subscription in JS
 
 You can see in the same template a commented Javascript dedicated to this view.
 
-This JS registers a session in the WAMP router on the ``polls`` realm. Then a subscription hook for the ``question.update`` WAMP URI is asigned to the
+This JS registers a session in the WAMP router on the ``polls`` realm. Then a subscription hook
+for the ``question.update`` WAMP URI is asigned to the ``onQuestionUpdate`` function.
 
 This is a simple JS function that receive the above mentioned JSON object, that includes notably
 the primary key of the changed question and the new total count of votes. It searches with a
