@@ -1,0 +1,7 @@
+# Tested versions for run-time
+Django==1.11
+django-bootstrap3==8.2.2
+django-debug-toolbar==1.7
+crossbar==17.3.1
+docutils==0.13.1
+requests==2.13.0

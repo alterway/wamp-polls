@@ -1,3 +1,4 @@
+# Latest versions for run-time
 Django
 django-bootstrap3
 django-debug-toolbar

@@ -49,6 +49,15 @@ software. Python comes with the ``venv`` module that does the job correctly.
 Install the requirements
 ------------------------
 
+You may use the required dependencies with safe versions used for this release.
+
+.. code:: console
+
+   pip install -r $PROJECT_HOME/frozen-requirements.txt
+
+Or if you are a real geek, you may use the latest versions of the same dependencies. It may not
+work, but you should find easily the fix because you're a code super hero.
+
 .. code:: console
 
    pip install -r $PROJECT_HOME/requirements.txt
@@ -231,7 +240,7 @@ Lots of things could be improved here:
 - Refactor the subscription pattern such we could use the same JS wrapping envelope for all
   subscriptions. Need the help of a JS guru too.
 - CRUD forms to add, remove, edit questions and choices, replacing Django OTB admin stuffs.
-- ...
+- Use the npm/bower/webpack dance to install 3rd party JS rather than copying manually distros.
 
 Any help (fork / pull request) in these fields will be appreciated.
 
