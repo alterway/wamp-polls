@@ -62,7 +62,7 @@ work, but you should find easily the fix because you're a code super hero.
 
    pip install -r $PROJECT_HOME/requirements.txt
 
-If you want to contribute, thes additional packages may be useful:
+If you want to contribute, these additional packages may be useful:
 
 .. code:: console
 
@@ -187,7 +187,7 @@ question and choices changes in that form:
    }
 
 This message is then managed by ``wamp_publish()`` function that wraps this Python/JSON object
-into the envelope expected by the Crossbar HTTP/REST bridge and posts it to the
+into the payload expected by the Crossbar HTTP/REST bridge and posts it to the
 ``question.update`` WAMP URI of the ``polls`` realm.
 
 The HTML view template
