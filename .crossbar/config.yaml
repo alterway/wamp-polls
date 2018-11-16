@@ -32,12 +32,6 @@ workers:
     endpoint:
       type: tcp
       port: 8080
-    # rawsocket: {}
-
-    # The /ws endpoint for WebSockets with no particular option
-    # websocket:
-    #   ws:
-    #     type: websocket
 
     paths:
 
@@ -60,6 +54,7 @@ workers:
         realm: polls
         role: anonymous
 
+      # Our WAMP root path for all services
       ws:
         type: websocket
 
