@@ -1,5 +1,7 @@
+.DS_Store
 venv/
 .vscode/
 .idea/
 /var/db/db.sqlite3
 /tags
+__pycache__/
