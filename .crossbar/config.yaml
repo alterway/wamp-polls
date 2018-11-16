@@ -26,40 +26,43 @@ workers:
           publisher: false
         cache: true
   transports:
-  - type: universal
+  - type: web
 
     # Everything goes through the port 8080
     endpoint:
       type: tcp
       port: 8080
-    rawsocket: {}
+    # rawsocket: {}
 
     # The /ws endpoint for WebSockets with no particular option
-    websocket:
+    # websocket:
+    #   ws:
+    #     type: websocket
+
+    paths:
+
+      # Using crossbar static and WSGI HTTP server capabilities (enough for a demo)
+      # http://crossbar.io/docs/WSGI-Host-Service/
+      # Could be replaced by Gunicorn or uWSGI in a real production situation
+      /:
+        type: wsgi
+        module: project.wsgi
+        object: application
+
+      static:
+        type: static
+        directory: "../var/static"
+
+      # Publisher http bridge
+      # http://crossbar.io/docs/HTTP-Bridge-Publisher/
+      publish:
+        type: publisher
+        realm: polls
+        role: anonymous
+
       ws:
         type: websocket
 
-    web:
-      paths:
-
-        # Using crossbar static and WSGI HTTP server capabilities (enough for a demo)
-        # http://crossbar.io/docs/WSGI-Host-Service/
-        # Could be replaced by Gunicorn or uWSGI in a real production situation
-        /:
-          type: wsgi
-          module: project.wsgi
-          object: application
-        static:
-          type: static
-          directory: "../var/static"
-
-        # Publisher http bridge
-        # http://crossbar.io/docs/HTTP-Bridge-Publisher/
-        publish:
-          type: publisher
-          realm: polls
-          role: anonymous
-
-      options:
-        access_log: true
-        display_tracebacks: true
+    options:
+      access_log: true
+      display_tracebacks: true
