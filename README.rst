@@ -9,8 +9,21 @@ Polls are updated live on any relevant page.
 
 ------------
 
-Installation
-============
+Fast installation with Docker
+=============================
+
+Installation the easy way for hurried people who just want to see the result.
+
+Just issue this command:
+
+.. code:: console
+
+   docker run glenfant/wamp-polls
+
+Open a browser at http://localhost:8080 and follow the instructions of the home page.
+
+Installation for developers and maintainers
+===========================================
 
 This application may run on any platform that runs Python 3.4 or a later version.
 
