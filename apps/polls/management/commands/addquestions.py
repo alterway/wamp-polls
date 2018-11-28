@@ -1,6 +1,6 @@
 """Django admin subcommand that populates the database
 
-https://docs.djangoproject.com/en/1.11/howto/custom-management-commands/
+https://docs.djangoproject.com/en/2.1/howto/custom-management-commands/
 """
 from django.core.management.base import BaseCommand
 

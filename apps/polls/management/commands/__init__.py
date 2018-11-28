@@ -1,3 +1,3 @@
 """Management commands
-Read https://docs.djangoproject.com/en/1.10/howto/custom-management-commands/
+Read https://docs.djangoproject.com/en/2.1/howto/custom-management-commands/
 """
