@@ -1,5 +1,5 @@
 # Tested versions for run-time
-Django==2.1.3
+Django==2.2.10
 django-bootstrap3==11.0.0
 django-debug-toolbar==1.10.1
 crossbar==18.11.1
